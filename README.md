@@ -40,7 +40,7 @@ e.g. `java -Dspring.profiles.active=development`
 
 ## API Documentation
 
-API's are documented online. With the service running in standalone mode, go to: http://localhost:8080/swagger-ui.html . Remember to change the port number in the URL if running on a port other than the default (8080).
+API's are documented online. With the service running in standalone mode, go to: http://localhost:8080/buttery-service/api/swagger-ui.html . Remember to change the port number in the URL if running on a port other than the default (8080).
 
 ## Maintenance
 
