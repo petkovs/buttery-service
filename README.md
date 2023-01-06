@@ -10,8 +10,8 @@ The battery service application provides ...
 
 ### Java Build
 
-1. Clone the git repo `git clone git@bitbucket.org:peterpal/standing-orders-service.git`
-2. `cd standing-orders-service`
+1. Clone the git repo ``
+2. `cd battery-service`
 3. `./gradlew clean build`
 
 ## Running
@@ -21,7 +21,7 @@ The battery service application provides ...
 Start the Spring Boot service (replace `${version}` with the current version from `build.gradle`) in another console window
 
 ```bash
-java -Dspring.artemis.host=localhost -Dspring.profiles.active=development -jar standing-orders-service-${version}.jar
+java -jar buttery-service-${version}.jar
 ```
 
 ## Runtime Configuration
@@ -41,8 +41,6 @@ e.g. `java -Dspring.profiles.active=development`
 ## API Documentation
 
 API's are documented online. With the service running in standalone mode, go to: http://localhost:8080/swagger-ui.html . Remember to change the port number in the URL if running on a port other than the default (8080).
-
-Running in Minikube, use `kubectl service standing-orders-service` to open in a browser and append `/swagger-ui.html` to the path.
 
 ## Maintenance
 
