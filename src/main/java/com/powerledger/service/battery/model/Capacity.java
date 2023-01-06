@@ -1,5 +1,7 @@
 package com.powerledger.service.battery.model;
 
+import lombok.Getter;
+
 import javax.persistence.Embeddable;
 
 /**
@@ -8,6 +10,7 @@ import javax.persistence.Embeddable;
  * The capacity of a battery is bigger than zero.
  */
 @Embeddable
+@Getter
 public class Capacity {
   private int amount;
 
