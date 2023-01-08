@@ -1,11 +1,10 @@
 package com.powerledger.service.battery.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * The {@code Battery} class represents a battery with a given name, capacity and located at a given postal code.
@@ -22,11 +21,17 @@ public class Battery {
   @GeneratedValue
   private Long id;
 
+  @NotBlank
+  @NonNull
   private String name;
 
+  @NotNull
+  @NonNull
   @Embedded
   private PostalCode postCode;
 
+  @NotNull
+  @NonNull
   @Embedded
   @AttributeOverrides({
     @AttributeOverride(name = "amount", column = @Column(name = "capacity"))

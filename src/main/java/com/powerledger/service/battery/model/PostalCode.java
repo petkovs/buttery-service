@@ -13,6 +13,13 @@ public class PostalCode {
   public static final int MIN_VALUE = 0;
   public static final int MAX_VALUE = 9999;
 
+  public static final String CODE_OUT_OF_RANGE_MSG =
+          String.format("Postal code must be between %s and %s", MIN_VALUE, MAX_VALUE);
+
+  public static PostalCode of(int number) {
+    return new PostalCode(number);
+  }
+
   private int postCode;
 
   public PostalCode() {
@@ -21,7 +28,7 @@ public class PostalCode {
 
   public PostalCode(int number) {
     if (number < MIN_VALUE || number > MAX_VALUE) {
-      throw new IllegalArgumentException(String.format("Postal code must be between %s and %s", MIN_VALUE, MAX_VALUE));
+      throw new IllegalArgumentException(CODE_OUT_OF_RANGE_MSG);
     }
     postCode = number;
   }

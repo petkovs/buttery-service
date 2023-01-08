@@ -12,6 +12,9 @@ import javax.persistence.Embeddable;
 @Embeddable
 @Getter
 public class Capacity {
+
+  public static final String OUT_OF_RANGE_MSG = "Capacity must be positive";
+
   private int amount;
 
   public Capacity() {

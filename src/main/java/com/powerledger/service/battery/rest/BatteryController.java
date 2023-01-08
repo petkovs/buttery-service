@@ -9,7 +9,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @Log4j2
@@ -28,18 +27,20 @@ public class BatteryController {
    * @return list of <code>BatteryInfo</code>.
    */
   @PostMapping
-  @Operation(summary = "Create battery record for each battery info object provided")
+  @Operation(summary = "Create a battery record for each battery info object provided")
   public List<BatteryInfo> create(@RequestBody @Valid List<BatteryInfo> batteryInfo) {
     log.info(() -> String.format("Battery info list %s", batteryInfo));
 
-    //List<BatteryInfo> bil = BatteryInfo.from(service.create(batteryInfo));
-    //return bil;
     return BatteryInfo.from(service.create(batteryInfo));
   }
 
   @GetMapping("/capacity")
   @Operation(summary = "Get capacity information for batteries in a post code range")
   public CapacityInfo getCapacity(@RequestParam Integer postCodeFrom, @RequestParam Integer postCodeTo) {
-    return service.getCapacityInformation(new PostalCode(postCodeFrom), new PostalCode(postCodeTo));
+    PostalCode start = new PostalCode(postCodeFrom);
+    PostalCode end = new PostalCode(postCodeTo);
+    log.info(() -> String.format("Getting capacity information for postcode range %s-%s", start, end));
+
+    return service.getCapacityInformation(start, end);
   }
 }
