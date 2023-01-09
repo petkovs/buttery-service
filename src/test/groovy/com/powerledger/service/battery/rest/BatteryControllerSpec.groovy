@@ -65,4 +65,69 @@ class BatteryControllerSpec extends Specification {
         .andExpect(content().string(containsString(mapper.writeValueAsString(response))))
   }
 
+  def "create empty battery info list returns empty list"() {
+    given:
+      def rqstJson = "[]"
+
+    when:
+      def result = mvc.perform(post("/batteries")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(rqstJson)
+      )
+
+    then:
+      result
+          .andExpect(status().isOk())
+          .andExpect(content().string(containsString("[]")))
+
+  }
+
+  def "when postcode is not between 0 and 9999 then client error"() {
+    given:
+      List<BatteryInfo> batteryInfo = Arrays.asList(BatteryInfo.builder()
+          .name("Bowen Hills")
+          .postCode(new PostalCode(4006))
+          .capacity(new Capacity(500))
+          .build())
+      def ow = mapper.writer().withDefaultPrettyPrinter()
+      def str = ow.writeValueAsString(batteryInfo)
+      def rqstJson = str.replace("4006", "12345")
+
+    when:
+      def result = mvc.perform(post("/batteries")
+          .contentType(MediaType.APPLICATION_JSON)
+          .content(rqstJson)
+      )
+
+    then:
+      result
+          .andExpect(status().is4xxClientError())
+  }
+
+  def "when capacity is negative then client error"() {
+    given:
+    List<BatteryInfo> batteryInfo = Arrays.asList(BatteryInfo.builder()
+        .name("Bowen Hills")
+        .postCode(new PostalCode(4006))
+        .capacity(new Capacity(500))
+        .build())
+    def ow = mapper.writer().withDefaultPrettyPrinter()
+    def str = ow.writeValueAsString(batteryInfo)
+    def rqstJson = str.replace("500", "-1")
+
+    when:
+    def result = mvc.perform(post("/batteries")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(rqstJson)
+    )
+
+    then:
+    result
+        .andExpect(status().is4xxClientError())
+  }
+
+  def "get capacity info"() {
+
+  }
+
 }

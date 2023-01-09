@@ -6,12 +6,14 @@ import com.powerledger.service.battery.service.BatteryService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
 @Log4j2
+@Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/batteries")
@@ -28,7 +30,7 @@ public class BatteryController {
    */
   @PostMapping
   @Operation(summary = "Create a battery record for each battery info object provided")
-  public List<BatteryInfo> create(@RequestBody @Valid List<BatteryInfo> batteryInfo) {
+  public List<BatteryInfo> create(@RequestBody List<@Valid BatteryInfo> batteryInfo) {
     log.info(() -> String.format("Battery info list %s", batteryInfo));
 
     return BatteryInfo.from(service.create(batteryInfo));

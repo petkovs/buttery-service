@@ -22,9 +22,18 @@ public class Capacity {
   }
 
   public Capacity(int amount) {
+    validate(amount);
+    this.amount = amount;
+  }
+
+  public void setAmount(int amount) {
+    validate(amount);
+    this.amount = amount;
+  }
+
+  private void validate(int amount) {
     if (amount < 0) {
       throw new IllegalArgumentException("Capacity must be positive");
     }
-    this.amount = amount;
   }
 }

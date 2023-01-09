@@ -27,14 +27,23 @@ public class PostalCode {
   }
 
   public PostalCode(int number) {
-    if (number < MIN_VALUE || number > MAX_VALUE) {
-      throw new IllegalArgumentException(CODE_OUT_OF_RANGE_MSG);
-    }
+    validate(number);
+    postCode = number;
+  }
+
+  public void setPostCode(int number) {
+    validate(number);
     postCode = number;
   }
 
   @Override
   public String toString() {
     return String.format("%04d", postCode);
+  }
+
+  private void validate(int number) {
+    if (number < MIN_VALUE || number > MAX_VALUE) {
+      throw new IllegalArgumentException(CODE_OUT_OF_RANGE_MSG);
+    }
   }
 }
